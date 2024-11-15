@@ -1,29 +1,33 @@
 import Link from "next/link";
 import React from "react";
-import { allProjects } from "contentlayer/generated";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
 import { Article } from "./article";
-import { Redis } from "@upstash/redis";
+import { readJsonFile } from '../../util/fileOperations';
+import path from 'path';
 import { Eye } from "lucide-react";
 
-const redis = Redis.fromEnv();
+const dataDir = path.join(process.cwd(), 'data');
 
 export const revalidate = 60;
 export default async function ProjectsPage() {
-  const views = (
-    await redis.mget<number[]>(
-      ...allProjects.map((p) => ["pageviews", "projects", p.slug].join(":")),
-    )
-  ).reduce((acc, v, i) => {
-    acc[allProjects[i].slug] = v ?? 0;
-    return acc;
-  }, {} as Record<string, number>);
+  const projects = await readJsonFile<any[]>(path.join(dataDir, 'projects.json'));
+  const views = await Promise.all(
+    projects.map(async (p) => {
+      const pageviewsFilePath = path.join(dataDir, `pageviews_projects_${p.slug}.json`);
+      return (await readJsonFile<number>(pageviewsFilePath)) ?? 0;
+    })
+  ).then((viewsArray) =>
+    viewsArray.reduce((acc, v, i) => {
+      acc[projects[i].slug] = v;
+      return acc;
+    }, {} as Record<string, number>)
+  );
 
-  const featured = allProjects.find((project) => project.slug === "unkey")!;
-  const top2 = allProjects.find((project) => project.slug === "planetfall")!;
-  const top3 = allProjects.find((project) => project.slug === "highstorm")!;
-  const sorted = allProjects
+  const featured = projects.find((project) => project.slug === "unkey")!;
+  const top2 = projects.find((project) => project.slug === "planetfall")!;
+  const top3 = projects.find((project) => project.slug === "highstorm")!;
+  const sorted = projects
     .filter((p) => p.published)
     .filter(
       (project) =>

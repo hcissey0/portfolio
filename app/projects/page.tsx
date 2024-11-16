@@ -6,12 +6,13 @@ import { Article } from "./article";
 import { readJsonFile } from '../../util/fileOperations';
 import path from 'path';
 import { Eye } from "lucide-react";
+import { Project } from "@/types/project";
 
 const dataDir = path.join(process.cwd(), 'data');
 
 export const revalidate = 60;
 export default async function ProjectsPage() {
-  const projects = await readJsonFile<any[]>(path.join(dataDir, 'projects.json'));
+  const projects = await readJsonFile<Project[]>(path.join(dataDir, 'projects.json')) as Project[]
   const views = await Promise.all(
     projects.map(async (p) => {
       const pageviewsFilePath = path.join(dataDir, `pageviews_projects_${p.slug}.json`);
@@ -24,11 +25,11 @@ export default async function ProjectsPage() {
     }, {} as Record<string, number>)
   );
 
-  const featured = projects.find((project) => project.slug === "unkey")!;
-  const top2 = projects.find((project) => project.slug === "planetfall")!;
-  const top3 = projects.find((project) => project.slug === "highstorm")!;
+  const featured = projects.find((project) => project.slug === "e_shop")!;
+  const top2 = projects.find((project) => project.slug === "binary_trees")!;
+  const top3 = projects.find((project) => project.slug === "flux")!;
   const sorted = projects
-    .filter((p) => p.published)
+    // .filter((p) => p.published)
     .filter(
       (project) =>
         project.slug !== featured.slug &&

@@ -1,23 +1,25 @@
 import "../global.css";
+import {Inter} from "@next/font/google"
 import LocalFont from "next/font/local";
 import { Metadata } from "next";
 import { Analytics } from "./components/analytics";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hassancissey.vercel.app"),
   title: {
     default: "Hassan Cissey Tijani",
     template: "%s | Hassan Cissey Tijani",
   },
-  description: "A Computer and Software Engineer, Web Developer, and Tech Enthusiast",
+  description: "A Computer and Software Engineer, Graphic Designer, Tech Enthusiast and a servant of Allah.",
   openGraph: {
-    title: "chronark.com",
+    title: "Hassan Cissey",
     description:
-      "A Computer and Software Engineer, Web Developer, and Tech Enthusiast",
+      "A Computer and Software Engineer, Graphic Designer, Tech Enthusiast and a servant of the Allah.",
     url: "https://hassancissey.vercel.app",
-    siteName: "hassancissey.vercel.app",
+    siteName: "Hassan Cissey Tijani",
     images: [
       {
-        url: "https://hassancissey.vercel.app/og-image.png",
+        url: "https://hassancissey.vercel.app/og.png",
         width: 1920,
         height: 1080,
       },
@@ -37,17 +39,18 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Hassan Cissey",
+    title: "Hassan Cissey Tijani",
     card: "summary_large_image",
   },
   icons: {
     shortcut: "/favicon.png",
   },
 };
-// const inter = Inter({
-//   subsets: ["latin"],
-//   variable: "--font-inter",
-// });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
 
 const calSans = LocalFont({
   src: "../public/fonts/CalSans-SemiBold.ttf",
@@ -56,8 +59,8 @@ const calSans = LocalFont({
 
 const funnelDisplay = LocalFont({
   src: "../public/fonts/FunnelDisplay-Regular.ttf",
-  variable: "--font-funnel",
-});
+  variable: "--font-funnel"
+})
 
 export default function RootLayout({
   children,
@@ -65,14 +68,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={[/*inter.variable,*/ calSans.variable, funnelDisplay.variable].join(" ")}>
+    <html lang="en" className={[ inter.variable, calSans.variable, funnelDisplay.variable].join(" ")}>
       <head>
         <Analytics />
       </head>
       <body
         className={`bg-black ${process.env.NODE_ENV === "development" ? "debug-screens" : undefined
           }`}
-      >
+      >     
         {children}
       </body>
     </html>

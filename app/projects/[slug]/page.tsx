@@ -1,11 +1,8 @@
 import { notFound } from "next/navigation";
+import { allProjects } from "contentlayer/generated";
 import { Mdx } from "@/app/components/mdx";
-import { Header } from "./header";
+import { ProjectHeader } from "./project-header";
 import "./mdx.css";
-import { ReportView } from "./view";
-import { readJsonFile } from '../../../util/fileOperations';
-import path from 'path';
-import fs from 'fs';
 
 export const revalidate = 60;
 
@@ -15,42 +12,30 @@ type Props = {
   };
 };
 
-const dataDir = path.join(process.cwd(), 'data');
 
 export async function generateStaticParams(): Promise<Props["params"][]> {
-  const filePath = path.join(dataDir, 'projects.json');
-  const fileContents = fs.readFileSync(filePath, 'utf-8');
-  const projects = JSON.parse(fileContents);
-  return projects
-    .filter((p: any) => p.published)
-    .map((p: any) => ({
+  return allProjects
+    .filter((p) => p.published)
+    .map((p) => ({
       slug: p.slug,
     }));
 }
 
 export default async function PostPage({ params }: Props) {
-  const filePath = path.join(dataDir, 'projects.json');
-  const fileContents = fs.readFileSync(filePath, 'utf-8');
-  const projects = JSON.parse(fileContents);
-  const project = projects.find((p: any) => p.slug === params.slug);
+  const slug = params?.slug;
+  const project = allProjects.find((project) => project.slug === slug);
 
   if (!project) {
     notFound();
   }
 
-  const pageviewsFilePath = path.join(dataDir, `pageviews_projects_${params.slug}.json`);
-  let views = 0;
-  try {
-    views = (await readJsonFile<number>(pageviewsFilePath)) ?? 0;
-  } catch (error) {
-    console.warn(`Pageviews file not found for slug: ${params.slug}`);
-  }
-
   return (
     <div className="bg-zinc-50 min-h-screen">
-      <Header project={project} views={views} />
-      <Mdx code={project.body.code} />
-      <ReportView slug={project.slug} />
+      <ProjectHeader project={project} />
+
+      <article className="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
+        <Mdx code={project.body.code} />
+      </article>
     </div>
   );
 }

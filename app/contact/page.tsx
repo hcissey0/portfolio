@@ -1,33 +1,51 @@
 "use client";
-import { Github, Mail, Twitter } from "lucide-react";
+import { Facebook, Github, Instagram, Mail, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
 
 const socials = [
 	{
-		icon: <Twitter size={20} />,
+		icon: <Twitter size={30} />,
 		href: "https://twitter.com/hcissey0",
-		label: "X (Twitter)",
+		label: "Twitter",
 		handle: "@hcissey0",
 	},
 	{
-		icon: <Mail size={20} />,
+		icon: <Mail size={30} />,
 		href: "mailto:hcissey0@gmail.com",
 		label: "Email",
 		handle: "hcissey0@gmail.com",
 	},
 	{
-		icon: <Github size={20} />,
+		icon: <Github size={30} />,
 		href: "https://github.com/hcissey0",
 		label: "Github",
 		handle: "hcissey0",
 	},
+	{
+		icon: <Facebook size={30} />,
+		href: "https://facebook.com/hcissey0",
+		label: "Facebook",
+		handle: "Hassan Cissey Tijani"
+	},
+	{
+		icon: <Youtube size={30} />,
+		href: "https://youtube.com/@hcissey0",
+		label: "YouTube",
+		handle: "Hassan Cissey Tijani"
+	},
+	{
+		icon: <Instagram size={30} />,
+		href: "https://instagram.com/hcissey0",
+		label: "Instagram",
+		handle: "hcissey0"
+	}
 ];
 
 export default function Example() {
 	return (
-		<div className=" bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
+		<div className="pb-20 lg:py-24 bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
 			<Navigation />
 			<div className="container flex items-center justify-center min-h-screen px-4 mx-auto">
 				<div className="grid w-full grid-cols-1 gap-8 mx-auto mt-32 sm:mt-0 sm:grid-cols-3 lg:gap-16">

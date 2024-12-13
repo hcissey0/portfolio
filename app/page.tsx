@@ -2,7 +2,8 @@ import Link from "next/link";
 import React from "react";
 import Particles from "./components/particles";
 
-export const navigation = [
+
+const navigation = [
   { name: "Projects", href: "/projects" },
   { name: "Designs", href: "/designs" },
   { name: "Blogs", href: "/blogs" },
@@ -40,8 +41,6 @@ export default function Home() {
           A Computer and Software Engineer, Graphic Designer, Tech Enthusiast and a servant of Allah.
         </h2>
       </div>
-        </div>
-
+    </div>
   );
-
 }

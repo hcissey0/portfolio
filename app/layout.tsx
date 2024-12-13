@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
   description: "A Computer and Software Engineer, Graphic Designer, Tech Enthusiast and a servant of Allah.",
   openGraph: {
-    title: "Hassan Cissey",
+    title: "Hassan Cissey Tijani",
     description:
       "A Computer and Software Engineer, Graphic Designer, Tech Enthusiast and a servant of the Allah.",
     url: "https://hassancissey.vercel.app",

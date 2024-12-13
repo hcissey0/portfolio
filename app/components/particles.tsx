@@ -147,7 +147,7 @@ export default function Particles({
 
 	const drawParticles = () => {
 		clearContext();
-		const particleCount = 2048;
+		const particleCount = quantity;
 		for (let i = 0; i < particleCount; i++) {
 			const circle = circleParams();
 			drawCircle(circle);

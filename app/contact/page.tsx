@@ -1,5 +1,5 @@
 "use client";
-import { Facebook, Github, Instagram, Mail, Twitter, Youtube } from "lucide-react";
+import { Facebook, Github, Instagram, Mail, MessageCircle, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
@@ -30,17 +30,17 @@ const socials = [
 		handle: "Hassan Cissey Tijani"
 	},
 	{
-		icon: <Youtube size={30} />,
-		href: "https://youtube.com/@hcissey0",
-		label: "YouTube",
-		handle: "Hassan Cissey Tijani"
-	},
-	{
 		icon: <Instagram size={30} />,
 		href: "https://instagram.com/hcissey0",
 		label: "Instagram",
 		handle: "hcissey0"
-	}
+	},
+	{
+		icon: <MessageCircle size={30} />,
+		href: "https://wa.me/+233243005255",
+		label: "WhatsApp",
+		handle: "Hassan Cissey Tijani"
+	},
 ];
 
 export default function Example() {
